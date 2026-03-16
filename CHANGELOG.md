@@ -14,10 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - TypeScript fix: filter `process.env` undefined values before spreading into `StdioClientTransport`
 
 ### Validated (M1)
-- grocy-mcp loads via stdio MCP, navigation model works (2 root tools → domain tools on `grocy_navigate`)
-- 4-step agent loop: navigate → get list → back → respond confirmed on virt06 with qwen2.5:3b
-- Grocy API (192.168.156.246:9283) reachable from virt06 and responding correctly
-- **Known limitation**: qwen2.5:3b hallucinates data on multi-hop tool tasks; qwen2.5:7b+ required for production-quality responses
+- grocy-mcp loads via stdio MCP; one client per domain (shopping/pantry/meal-plan) permanently navigated
+- Full tool chain confirmed: Vercel AI SDK → qwen2.5:7b → LiteLLM → Ollama → Grocy REST API → SQLite
+- `shopping.addItem` and `shopping.getList` calls hit real Grocy DB on 192.168.156.246:9283
+- qwen2.5:7b produces correct tool calls and real API writes (product ID lookup accuracy is a prompt/data issue)
+- **qwen3.5:9b limitation**: Ollama 0.18.0 ignores `options.think=false` via `/v1/chat/completions` when tools are present, causing empty responses. Track for future Ollama upgrade.
+- grocy-mcp navigation model incompatible with static tool snapshot — fixed by per-domain client instances
 
 ## [0.1.0] - 2026-03-16
 

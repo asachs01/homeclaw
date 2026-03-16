@@ -41,6 +41,10 @@ export const AI_MODEL = str('AI_MODEL', 'qwen2.5:7b-instruct');
 export const AI_BASE_URL = str('AI_BASE_URL', 'http://litellm:4000');
 export const AI_API_KEY = str('AI_API_KEY', 'homeclaw');
 
+// --- Grocy ---
+export const GROCY_URL = str('GROCY_URL', 'http://192.168.156.246:9283');
+export const GROCY_API_KEY = str('GROCY_API_KEY', '');
+
 // --- Household ---
 export const HOUSEHOLD_NAME = str('HOUSEHOLD_NAME', 'Home');
 export const TRIGGER_WORD = str('TRIGGER_WORD', '@home');

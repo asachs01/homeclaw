@@ -11,6 +11,8 @@ import {
   AI_BASE_URL,
   AI_API_KEY,
   DB_PATH,
+  GROCY_URL,
+  GROCY_API_KEY,
   HOUSEHOLD_NAME,
   CONTEXT_FILE,
   SESSIONS_DIR,
@@ -41,43 +43,50 @@ function getModel() {
   return openai(AI_MODEL);
 }
 
-async function spawnMcpServer(scriptPath: string): Promise<MCPClient | null> {
+async function spawnMcpServer(
+  command: string,
+  args: string[],
+  env: Record<string, string>,
+  label: string,
+): Promise<MCPClient | null> {
   try {
-    const transport = new StdioClientTransport({
-      command: 'node',
-      args: [scriptPath],
-      env: { ...process.env, DB_PATH },
-    });
-
+    const baseEnv = Object.fromEntries(Object.entries(process.env).filter(([, v]) => v !== undefined)) as Record<string, string>;
+    const transport = new StdioClientTransport({ command, args, env: { ...baseEnv, ...env } });
     const client = await experimental_createMCPClient({ transport });
-    logger.info({ scriptPath }, 'MCP server started');
+    logger.info({ label }, 'MCP server started');
     return client;
   } catch (err) {
-    logger.warn({ scriptPath, err }, 'Failed to start MCP server — skipping');
+    logger.warn({ label, err }, 'Failed to start MCP server — skipping');
     return null;
   }
 }
 
 export async function initAgent(): Promise<void> {
-  const mcpScripts = [
-    'dist/mcp/grocery.js',
-    'dist/mcp/meal.js',
-    'dist/mcp/recipe.js',
-    'dist/mcp/chores.js',
-  ];
+  // grocy-mcp: shopping, pantry, and meal plan via Grocy REST API
+  const grocyClient = await spawnMcpServer(
+    'node',
+    [new URL('../../node_modules/@asachs01/grocy-mcp/dist/index.js', import.meta.url).pathname],
+    { GROCY_URL, GROCY_API_KEY },
+    'grocy-mcp',
+  );
 
-  for (const script of mcpScripts) {
-    const client = await spawnMcpServer(script);
+  // chores MCP: local SQLite (Grocy has no chore tracking equivalent)
+  const choresClient = await spawnMcpServer(
+    'node',
+    [new URL('../../dist/mcp/chores.js', import.meta.url).pathname],
+    { DB_PATH },
+    'chores-mcp',
+  );
+
+  for (const client of [grocyClient, choresClient]) {
     if (!client) continue;
-
     mcpClients.push(client);
-
     try {
       const tools = await client.tools();
       allMcpTools = { ...allMcpTools, ...tools };
-      logger.info({ script, toolCount: Object.keys(tools).length }, 'Loaded MCP tools');
+      logger.info({ toolCount: Object.keys(tools).length }, 'Loaded MCP tools');
     } catch (err) {
-      logger.warn({ script, err }, 'Failed to load tools from MCP server');
+      logger.warn({ err }, 'Failed to load tools from MCP server');
     }
   }
 

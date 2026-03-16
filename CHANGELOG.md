@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (M1)
+- Replaced custom grocery/meal/recipe MCP servers with `@asachs01/grocy-mcp` backed by real Grocy instance
+- Added `GROCY_URL` and `GROCY_API_KEY` config exports
+- `spawnMcpServer` helper now takes explicit `command/args/env/label` for clean multi-server init
+- TypeScript fix: filter `process.env` undefined values before spreading into `StdioClientTransport`
+
+### Validated (M1)
+- grocy-mcp loads via stdio MCP, navigation model works (2 root tools → domain tools on `grocy_navigate`)
+- 4-step agent loop: navigate → get list → back → respond confirmed on virt06 with qwen2.5:3b
+- Grocy API (192.168.156.246:9283) reachable from virt06 and responding correctly
+- **Known limitation**: qwen2.5:3b hallucinates data on multi-hop tool tasks; qwen2.5:7b+ required for production-quality responses
+
 ## [0.1.0] - 2026-03-16
 
 ### Added

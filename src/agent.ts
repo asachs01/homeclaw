@@ -78,7 +78,37 @@ export async function initAgent(): Promise<void> {
     'chores-mcp',
   );
 
-  for (const client of [grocyClient, choresClient]) {
+  // grocy-mcp uses a navigation model: tool list changes per domain.
+  // Spawn one client per domain so each stays permanently in its domain state.
+  // This avoids navigation state conflicts when the model calls domain tools.
+  if (grocyClient) {
+    await grocyClient.close?.();  // close the initial client we don't need
+
+    const GROCY_DOMAINS = ['shopping', 'pantry', 'meal-plan'] as const;
+    const grocyEnv = { GROCY_URL, GROCY_API_KEY };
+    const grocyArgs = [new URL('../../node_modules/@asachs01/grocy-mcp/dist/index.js', import.meta.url).pathname];
+
+    for (const domain of GROCY_DOMAINS) {
+      const domainClient = await spawnMcpServer('node', grocyArgs, grocyEnv, `grocy-mcp:${domain}`);
+      if (!domainClient) continue;
+      mcpClients.push(domainClient);
+      try {
+        const navTools = await domainClient.tools();
+        if (navTools.grocy_navigate) {
+          await (navTools.grocy_navigate as unknown as { execute: (a: unknown, o: unknown) => Promise<unknown> })
+            .execute({ domain }, { toolCallId: `init-${domain}`, messages: [], abortSignal: new AbortController().signal });
+        }
+        const domainTools = await domainClient.tools();
+        const { grocy_back: _back, ...toolsToExpose } = domainTools;
+        allMcpTools = { ...allMcpTools, ...toolsToExpose };
+        logger.info({ domain, toolCount: Object.keys(toolsToExpose).length }, 'Loaded grocy-mcp domain');
+      } catch (err) {
+        logger.warn({ domain, err }, 'Failed to load grocy-mcp domain tools');
+      }
+    }
+  }
+
+  for (const client of [choresClient]) {
     if (!client) continue;
     mcpClients.push(client);
     try {

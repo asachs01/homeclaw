@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-03-16
+
 ### Added
 - Initial project scaffold: `package.json`, `tsconfig.json`
 - `src/config.ts` - environment-variable-driven configuration with typed exports
@@ -17,17 +19,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `CONTEXT.md.template` - per-household agent context template
 - `CHANGELOG.md` - this file
 
-## [0.1.0] - Planned
-
 ### Added
-- Agent loop using Vercel AI SDK `generateText` with tool use
+- Agent loop using Vercel AI SDK `generateText` with tool use and session persistence
 - WhatsApp channel integration via `@whiskeysockets/baileys`
 - Telegram channel integration via Telegraf
 - Discord channel integration via discord.js
-- Four domain MCP servers: grocery, meal, recipe, chores
+- Four domain MCP servers: grocery, meal, recipe, chores (all with Zod-typed tool schemas)
 - Docker Compose deployment configuration with Ollama + LiteLLM
-- Background scheduler for recurring chore reminders and meal planning prompts
-- Household member management
+- Background scheduler for recurring chore reminders
+- Household member management and context file support
+- Native deployment support (nvm + pip install for non-Docker environments)
+
+### Validated (M0)
+- Vercel AI SDK + Ollama + LiteLLM end-to-end tool calling confirmed working on virt06.sachshaus.net
+- `qwen2.5:3b` model: tool invocation, multi-step agent loop, OpenAI-compatible API path all functional
+- Direct Ollama path (`localhost:11434/v1`) and LiteLLM proxy path (`localhost:4000/v1`) both operational
 - Conversation history persisted to SQLite
 
 [Unreleased]: https://github.com/yourusername/homeclaw/compare/v0.1.0...HEAD

@@ -1,0 +1,65 @@
+# Household Context
+
+<!--
+  This file is loaded as part of the AI agent's system prompt on every request.
+  Think of it as the agent's persistent memory about your household.
+
+  You can edit it freely at any time - changes take effect on the next message.
+  Keep it concise: the shorter and more relevant, the better the agent performs.
+
+  Default location: /data/CONTEXT.md  (override with CONTEXT_FILE env var)
+-->
+
+## Household
+
+**Name:** {{HOUSEHOLD_NAME}}
+
+---
+
+## Members
+
+List everyone in the household, along with their messaging handle if they
+interact with the agent directly (e.g. WhatsApp number, Telegram username).
+
+| Name | Handle / Notes |
+|------|----------------|
+| Alex | @alex (WhatsApp) |
+| Jordan | @jordan_t (Telegram) |
+
+---
+
+## Dietary Preferences & Restrictions
+
+Describe any dietary rules the agent should respect when suggesting recipes
+or building meal plans.
+
+- No shellfish (Alex is allergic)
+- Vegetarian on Mondays
+- Prefer low-sugar breakfast options
+
+---
+
+## Grocery Preferences
+
+- Preferred supermarket: Whole Foods
+- Organic produce when available
+- Buy in bulk for: rice, pasta, canned tomatoes
+
+---
+
+## Chores & Routines
+
+Any standing rules about chore assignment or scheduling.
+
+- Alex handles bins on Tuesdays
+- Jordan handles laundry on weekends
+- Deep-clean kitchen every two weeks
+
+---
+
+## Notes
+
+Any other household-specific instructions for the agent.
+
+- Remind everyone about meal prep on Sunday afternoons
+- Use metric units in recipes

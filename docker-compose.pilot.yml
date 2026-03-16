@@ -1,0 +1,15 @@
+# Pilot deployment stack.
+# Use this compose file on household machines that connect to the shared
+# Ollama + LiteLLM stack running on the dedicated HomeClaw node.
+# AI_BASE_URL must be set in .env to point to the shared LiteLLM instance
+# (e.g. AI_BASE_URL=http://<homeclaw-node-ip>:4000).
+
+services:
+  household:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./data:/data
+    env_file: .env
+    restart: unless-stopped

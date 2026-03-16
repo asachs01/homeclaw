@@ -1,0 +1,37 @@
+services:
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      OLLAMA_NUM_PARALLEL: "1"
+    restart: unless-stopped
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main
+    depends_on:
+      - ollama
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./docker/litellm.config.yaml:/app/config.yaml
+    command: --config /app/config.yaml
+    restart: unless-stopped
+
+  household:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - litellm
+    volumes:
+      - ./data:/data
+    env_file: .env
+    environment:
+      AI_BASE_URL: http://litellm:4000
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

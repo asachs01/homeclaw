@@ -1,0 +1,41 @@
+# Shared services stack.
+# Run on the dedicated HomeClaw node.
+# Household stacks connect to this via docker-compose.pilot.yml.
+
+services:
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      OLLAMA_NUM_PARALLEL: "1"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 15s
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main
+    depends_on:
+      ollama:
+        condition: service_healthy
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./docker/litellm.config.yaml:/app/config.yaml
+    command: --config /app/config.yaml
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  ollama_data:

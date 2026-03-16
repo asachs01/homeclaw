@@ -1,0 +1,24 @@
+model_list:
+  - model_name: qwen2.5:7b-instruct
+    litellm_params:
+      model: ollama/qwen2.5:7b-instruct
+      api_base: http://ollama:11434
+
+  - model_name: qwen2.5:14b-instruct
+    litellm_params:
+      model: ollama/qwen2.5:14b-instruct
+      api_base: http://ollama:11434
+
+  - model_name: mistral:7b-instruct
+    litellm_params:
+      model: ollama/mistral:7b-instruct
+      api_base: http://ollama:11434
+
+  - model_name: llama3.1:8b-instruct
+    litellm_params:
+      model: ollama/llama3.1:8b-instruct
+      api_base: http://ollama:11434
+
+litellm_settings:
+  num_retries: 2
+  request_timeout: 300

@@ -1,5 +1,9 @@
 # HomeClaw
 
+<p align="center">
+  <img src="branding/nisse-icon.png" alt="Nisse — HomeClaw's household guardian" width="180" />
+</p>
+
 **Meet Nisse** — your household guardian. A tomte from Scandinavian folklore, brought into the modern home. He keeps the pantry, the shopping list, and the weekly meal plan running quietly in the background, over Telegram (or WhatsApp / Discord). Warm, plain-spoken, devoted to his family.
 
 > *"You've got chicken thawing and half a bag of rice. Want me to find something for tonight?"*

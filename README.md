@@ -30,6 +30,19 @@ See [NISSE.md](NISSE.md) for the full character brief.
 
 ---
 
+## Related Projects
+
+HomeClaw is part of a small ecosystem of Grocy tooling:
+
+| Project | Description |
+|---------|-------------|
+| **[grocy-mcp](https://github.com/asachs01/grocy-mcp)** | MCP server that gives AI agents structured access to the Grocy API — the same server HomeClaw uses under the hood |
+| **[grocy-cli](https://github.com/asachs01/grocy-cli)** | Command-line interface for Grocy — useful for scripting, migrations, and debugging outside of HomeClaw |
+
+If you want to build your own Grocy-powered agent or automation, `grocy-mcp` is the starting point.
+
+---
+
 ## Quick Start (Docker — bundled Grocy)
 
 ```bash

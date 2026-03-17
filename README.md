@@ -4,11 +4,17 @@
   <img src="branding/nisse-icon.png" alt="Nisse — HomeClaw's household guardian" width="180" />
 </p>
 
-**Meet Nisse** — your household guardian. A tomte from Scandinavian folklore, brought into the modern home. He keeps the pantry, the shopping list, and the weekly meal plan running quietly in the background, over Telegram (or WhatsApp / Discord). Warm, plain-spoken, devoted to his family.
+**HomeClaw puts a Nisse in your kitchen.**
+
+In Scandinavian folklore, a *nisse* (or *tomte*) is a small household spirit — ancient, devoted, and quietly competent. He lives in the home. He watches over the pantry. He makes sure the family doesn't run out of things. He has been doing this for a very long time, and he takes it personally.
+
+HomeClaw's Nisse does the same thing, over Telegram.
 
 > *"You've got chicken thawing and half a bag of rice. Want me to find something for tonight?"*
 
-Each family gets their own Nisse. Same character, different name — chosen during setup.
+He knows your pantry. He knows your recipes. He tracks what's expiring, builds the shopping list, and manages the week's meal plan — without being asked twice. Warm, plain-spoken, and completely devoted to the household he belongs to.
+
+Each family gets their own Nisse. Same spirit, different name — chosen by the family during their first conversation with him.
 
 See [NISSE.md](NISSE.md) for the full character brief.
 

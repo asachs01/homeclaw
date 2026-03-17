@@ -33,6 +33,8 @@ function strList(key: string): string[] {
 // --- Storage ---
 export const DB_PATH = str('DB_PATH', '/data/homeclaw.db');
 export const CONTEXT_FILE = str('CONTEXT_FILE', '/data/CONTEXT.md');
+export const ASSISTANT_NAME_FILE = str('ASSISTANT_NAME_FILE', '/data/ASSISTANT_NAME');
+export const BOOTSTRAP_FILE = str('BOOTSTRAP_FILE', '/app/BOOTSTRAP.md');
 export const SESSIONS_DIR = str('SESSIONS_DIR', '/data/sessions');
 
 // --- AI Inference ---

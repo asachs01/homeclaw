@@ -202,6 +202,17 @@ function saveSession(sessionKey: string, messages: CoreMessage[]): void {
   }
 }
 
+export function clearSession(sessionKey: string): void {
+  const sessionFile = join(SESSIONS_DIR, `${sessionKey}.json`);
+  try {
+    unlinkSync(sessionFile);
+  } catch (err: any) {
+    if (err?.code !== 'ENOENT') {
+      logger.warn({ sessionKey, err }, 'Failed to clear session file');
+    }
+  }
+}
+
 // --- Onboarding state machine ---
 // Small LLMs can't reliably drive a multi-turn interview themselves.
 // We ask scripted questions from code and only use the LLM at the end

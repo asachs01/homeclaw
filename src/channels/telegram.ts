@@ -12,31 +12,31 @@ export async function broadcastTelegram(text: string): Promise<void> {
   await Promise.all(sends);
 }
 
-const HELP_TEXT = `*HomeClaw* 🏠
+const HELP_TEXT = `*${HOUSEHOLD_NAME}'s Nisse* 🏠
 
-I'm your household AI assistant for *${HOUSEHOLD_NAME}*, connected to your Grocy pantry.
+I'm your household guardian — keeping the pantry, shopping list, and meal plan running quietly in the background.
 
 *What I can do:*
-• Check what's in stock
-• Add items to your shopping list
-• Import recipes from URLs and add ingredients
-• Find recipes based on what you have
-• Track chores and tasks
-• Answer questions about your household
+• Tell you what's in stock and flag things expiring soon
+• Build and manage the shopping list
+• Import recipes from URLs and add their ingredients
+• Suggest what to cook based on what you have
+• Plan the week's dinners
+• Track household chores
 
-*How to use me:*
-• In private chat: just send me a message
-• In groups: mention @${TRIGGER_WORD.replace(/^@/, '')} to get my attention
+*How to reach me:*
+• Private chat: just send a message
+• Group chat: mention @${TRIGGER_WORD.replace(/^@/, '')}
 
-*Example messages:*
+*Examples:*
 • "What do we have in the fridge?"
-• "Add milk and eggs to the shopping list"
+• "Add oat milk and eggs to the list"
 • "Import this recipe: [URL]"
 • "What can I make with what we have?"
-• "Show me this week's meal plan"
+• "What's on the meal plan this week?"
 
 *Commands:*
-/status — Check HomeClaw and Grocy connection status
+/status — Check connection status
 /setup — Re-run household setup
 /history — Clear conversation history`;
 

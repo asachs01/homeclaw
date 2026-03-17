@@ -1,6 +1,12 @@
 # HomeClaw
 
-Local-first AI household assistant. Connects to your [Grocy](https://grocy.info) pantry and responds to your family over Telegram (or WhatsApp / Discord). Ask it what's in the fridge, add items to the shopping list, import recipes from URLs, figure out what to cook with what you have, and more.
+**Meet Nisse** — your household guardian. A tomte from Scandinavian folklore, brought into the modern home. He keeps the pantry, the shopping list, and the weekly meal plan running quietly in the background, over Telegram (or WhatsApp / Discord). Warm, plain-spoken, devoted to his family.
+
+> *"You've got chicken thawing and half a bag of rice. Want me to find something for tonight?"*
+
+Each family gets their own Nisse. Same character, different name — chosen during setup.
+
+See [NISSE.md](NISSE.md) for the full character brief.
 
 ## Features
 
